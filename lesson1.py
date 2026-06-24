@@ -1,166 +1,184 @@
 import numpy as np
 from torch._C import dtype
 
-# створення масиву
+# Завдання 1
+# Створіть масив з числами від 1 до 10. Виведіть його, його
+# розмір, тип даних.
+# Змініть розмір масиву на (5, 2). Знову виведіть масив,
+# розмір та тип даних
 
-# nums = np.array([1, 2, 3, 4, 5])
-# print(nums)
-# print(type(nums))
-#
-# print(nums.shape)  # розмір масиву
-# print(nums.dtype)  # тип даних одного елемента в комірці
-# # int64 -- 64 біта на одну комірку
-#
-# # вказати тип даних
-# nums = np.array([1, 2, 3, 4, 5], dtype=np.float32)
-# print(nums)
-# print(nums.shape)
-# print(nums.dtype)
-
-# двовимірний масив(таблиця/матриця)
-
-# nums = np.array(
-#     [[1, 2, 3, 4],
-#      [5, 6, 7, 8],
-#      [9, 10, 11, 12]]
-# )
-#
-# print(nums)
-# print(nums.shape)  # розмір масиву
-# print(nums.dtype)  # тип даних одного елемента в комірці
+def start_task1():
+    nums = np.arange(1, 11)
+    print("масив:", nums)
+    print("розмір масиву:",nums.shape)
+    print("тип даних масиву:", nums.dtype)
 
 
-
-# # порівнння швидкості для масивів та списків
-# import time
-#
-#
-# N = 10_000_000
-# nums_list = list(range(N))
-# nums_array = np.array(range(N))
-#
-# start = time.time()
-# res = sum(nums_list)
-# end = time.time()
-#
-# print(f"Python list: {end - start:0.5f} sec")
-#
-# start = time.time()
-# res = np.sum(nums_array)
-# end = time.time()
-#
-# print(f"Numpy array: {end - start:0.5f} sec")
-#
-# start = time.time()
-# total = 0
-# for num in nums_array:
-#     total += num
-# end = time.time()
-#
-# print(f"Numpy array with for: {end - start:0.5f} sec")
+# start_task1()
 
 
-# цикл for -- то є зло
-# користуєтеся numpy функція
+# Завдання 2
+# Створіть масив:
+# 1 2 3 4
+# 5 6 7 8
+# 9 10 11 12
+# Використовуючи індекси виведіть:
+# ● число 7
+# ● другий рядок
+# ● останній стовпчик
+# ● праву половину
+# ● жовту область
+# ● замініть жовту область на -1
+# ● зробіть перший стовпчик таким самим як і другий
 
 
-# створення та розміри
+def start_task2():
+    nums = np.arange(1, 13).reshape((3, 4))
 
-# # зі списку
-# nums_list = [1, 2, 3, 4]
-# nums = np.array(nums_list)
-#
-# # аналог range
-# nums = np.arange(10, 20)
-# print(nums)
+    print("масив:", nums)
+    print(f"число 7: {nums[1, 2]}")
+    print(f"другий рядок: {nums[1]}")
+    print(f"останній стовпчик: {nums[:, -1]}")
+    print(f"праву половину: {nums[:, 2:4]}")
+    print(f"жовту область: {nums[1:3, 1:3]}")
 
-# масив нулів/одиниць/випадкових чисел
-# nums = np.zeros((6,))  # вказуєте розмір
-# print(nums)
-#
-# nums = np.ones((5, 3))
-# print(nums)
-#
-# nums = np.random.rand(2, 3)  # випадкові від 0 до 1
-# print(nums)
+    for i in range(1, 3):
+        for j in range(1, 3):
+            nums[i][j] = -1
 
-# # зміна розмірів та типів
-#
-# nums = np.arange(12)
-# print(nums)
-# print(nums.shape)
-# print(nums.dtype)
-#
-# new_nums = nums.reshape((3, 4))
-# print(new_nums)
-# print(new_nums.shape)
-# print(new_nums.dtype)
-#
-# nums_float16 = nums.astype(np.float16)
-# print(nums_float16)
-# print(nums_float16.shape)
-# print(nums_float16.dtype)
+    print(f"замініть жовту область на -1: {nums}")
+
+    for i in range(0, 3):
+            nums[i][0] = nums[i][1]
+
+    print(f"зробіть перший стовпчик таким самим як і другий: {nums}")
 
 
-# # перенаповнення
-# # int8 -- -128..127
-# nums = np.array([10, 20, 30, 120], dtype=np.int8)
-# print(nums)
-#
-# # збільшити всі числа на 10
-# nums = nums + 10
-# print(nums)
+# start_task2()
 
 
-# індексація
-# nums = np.array([10, 20, 30, 40, 50])
-#
-# print(nums[0])  # перший елемент
-# print(nums[3])  # 40
-# print(nums[-1])  # останній
-# print(nums[-3])  # третій з кінця
-# print(nums[1:4])  # 20 - 40
+# Завдання 3
+# У масиві з попереднього завдання створіть маску для
+# чисел які більші за 6. З її допомогою
+# ● виведіть кількість чисел більших за 6
+# ● виведіть самі числа
+# ● до кожного числа яке відповідає масці додайте 10
+# ● кожне число що не відповідає масці помножте на -1
+# ● замініть ці числа які відповідають масці на відповідні
+# їм з масиву
+# 1 0 1 0
+# 0 1 0 1
+# 1 0 1 0
+
+def start_task3():
+    nums = np.arange(1, 13).reshape((3, 4))
+    mask = nums > 6
+
+    print("виведіть кількість чисел більших за 6:", nums[mask].shape)
+    print("виведіть самі числа:", nums[mask])
+
+    nums[mask] += 10
+    print("до кожного числа яке відповідає масці додайте 10:", nums)
+
+    nums[~mask] *= -1
+    print("кожне число що не відповідає масці помножте на -1:", nums)
+
+    new_arr = np.array(
+        [
+            [1, 0, 1, 0],
+            [0, 1, 0, 1],
+            [1, 0, 1, 0]
+        ]
+    )
+
+    nums[mask] = new_arr[mask]
+    print("замініть ці числа які відповідають масці на відповідні:", nums)
 
 
-# # індексація таблиць
-# nums = np.arange(12).reshape((4, 3))
-# print(nums)
-
-# спочатку рядки потім стовпчики
-# nums[індекс рядка, індекс стовпчика]
-
-# print(nums[1, 2])  # 5(рядок 1, стовпчик 2)
-# print(nums[3])     # весь рядок 3
-# print(nums[0:2])   # перші 2 рядка
-# print(nums[:, 1])     # стовпчик 1
-# print(nums[:, 1:3])    # два останніх стовпчика
-# print(nums[1:3, 0:2])
+# start_task3()
 
 
+# Завдання 4
+# Створіть масив
+# -10 24 35
+# 250 -6 7
+# 12 180 11
+# -2 -45 -26
+# Усі числа менші за 0 замініть на 0.
+# Усі числа більші за 100 замініть на 100
 
-# базові операці
+def start_task4():
+    nums = np.array([
+        [-10, 24, 35],
+        [250, -6, 7],
+        [12, 180, 11],
+        [-2, -45, -26]
+    ])
 
-# nums1 = np.array([1, 2, 3])
-# nums2 = np.array([2, 2, 2])
-#
-# print(nums1 + 10)
-# print(nums1 * nums2)
+    nums[nums < 0] = 0
+    nums[nums > 100] = 100
+    print(nums)
 
 
-# булеві маски
+# start_task4()
 
-nums = np.array([15, 8, 17, 18, 1, 2, 3])
 
-mask = nums > 10
+# Завдання 5
+# Створіть масив та виведіть його тип даних
+# 100 120 200 250 10
+# Додайте до кожного числа 50 та виведіть результат.
+# Створіть такий самий масив але з типом uint8
+# Знову додайте 50 та виведіть результат
+# Зробіть так щоб обчислення працювали правильно, якщо
+# число виходить більшим за 255 то зробіть його 255
 
-# отримати елементи які відповідають масці
-print(nums[mask])
 
-# всі елементи які відповідають масці збільшити в 2 рази
-nums[mask] *= 2
-print(nums)
+def start_task5():
+    nums = np.array([100, 120, 200, 250, 10])
 
-#всі елементи які відповідають масці замінити на -1
-nums[mask] = -1
-print(nums)
+    print(f"тип даних: {nums.dtype}")
 
+    nums += 50
+    print(f"Додайте до кожного числа 50: {nums}")
+
+    nums1 = np.array([100, 120, 200, 250, 10]).astype(np.uint8)
+    print(f"з типом uint8: {nums1}")
+
+    nums1 = nums1.astype(np.int64)
+    nums1 += 50
+    mask = nums1 > 255
+    nums1[mask] = 255
+    nums1 = nums1.astype(np.uint8)
+
+    print(f"Знову додайте 50: {nums1}")
+
+
+# start_task5()
+
+
+# Завдання 6
+# Створіть масив типу uint8
+# 10 4 25 40 200
+# |Помножте всі значення на 2. Результат має бути типу
+# uint8 а всі значення в діапазоні 0-255
+# Помножте всі значення на 1.5. Результат має бути типу
+# uint8 а всі значення в діапазоні 0-255
+
+
+def start_task6():
+    nums = np.array([10, 4, 25, 40, 200])
+
+    nums *= 2
+    mask = nums > 255
+    nums[mask] = 255
+    nums = nums.astype(np.uint8)
+
+    print(f"Помножте всі значення на 2: {nums}")
+
+    nums = nums * 1.5
+    mask = nums > 255
+    nums[mask] = 255
+    nums = nums.astype(np.uint8)
+    print(f"Помножте всі значення на 1.5: {nums}")
+
+# start_task6()
