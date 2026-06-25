@@ -1,107 +1,114 @@
-# # дз завдання 3
-# import numpy as np
-#
-# nums = np.array([1, 2, 3], dtype=np.uint8)
-#
-# # намагається помістити результат(типу float64) у ті самі
-# # комірки(типу uint8) що не можливо -- error
-# # nums *= 0.2
-#
-# # спочатку запускається nums * 0.2 -- створюється новий масив
-# # далі запускається nums = ... -- змінюється вказівник
-# nums = nums * 0.2
-#
-# print(nums)
-# print(nums.dtype)
-# import numpy as np
-#
-# # uint8 -- 0-255
-#
-# nums = np.array([2], dtype=np.uint8)
-#
-# res = nums - 10
-# print(res)
-
-
-# # # зображення у opencv
-# import cv2
-#
-# # читання злображення
-# img = cv2.imread(
-#     'data/lesson1/cameraman.png',  # шлях до файлу
-#     cv2.IMREAD_GRAYSCALE # формат зображення
-# )
-#
-#
-# print(type(img))
-# print(img)
-# print(img.shape)
-# print(img.dtype)
-#
-# # показати зображення
-# cv2.imshow(
-#     'image',   # назву
-#     img
-# )
-#
-#
-# # зміна розміру зображення
-# new_img = cv2.resize(img, (500, 500))
-#
-# # зміна у відсотках(на 50%)
-# new_img = cv2.resize(img, None, fx=1.5, fy=1.5)
-#
-# cv2.imshow('resized_image', new_img)
-# # програма чекає поки буде натиснута будь-яка кнопка
-# cv2.waitKey(0)
-# print('End')
-
-
-# import utils
-#
-# utils.lesson1_image()
-
 import cv2
 import numpy as np
 
-# читання злображення
+
+# Завдання 1
+# Відкрийте зображення data/Lenna.png. Виведіть на екран
+# розмір зображення, тип даних, максимальну та мінімальну
+# інтенсивність пікселів, саме зображення з підписом.
 img = cv2.imread(
-    'data/lesson1/cameraman.png',  # шлях до файлу
-    cv2.IMREAD_GRAYSCALE # формат зображення
-)
+        'data/lesson1/Lenna.png',  # шлях до файлу
+        cv2.IMREAD_GRAYSCALE # формат зображення
+    )
 
-img = cv2.resize(img, (500, 500))
 
-# збільшення значення пікселів
+def start_task1():
+    cv2.imshow('original', img)
+    cv2.waitKey(0)
+    print(f"розмір зображення: {img.shape}")
+    print(f"тип даних: {img.dtype}")
+    print(f"максимальну інтенсивність пікселі: {img.max()}")
+    print(f"мінімальну інтенсивність пікселі: {img.min()}")
 
-cv2.imshow('original', img)
 
-new_img = img.astype(np.int16)
-new_img -= 80
+# start_task1()
 
-# пікселів які опинились за межами діапазону 0-255
-# треба повернути назад
 
-# mask_255 = new_img > 255
-# new_img[mask_255] = 255
-# mask_0 = new_img < 0
-# new_img[mask_0] = 0
+# Завдання 2
+# Відкрийте зображення data/Lenna.png. Виведіть на екран
+# такі зображень:
+#  Верхній лівий кут розміром 100х50
+#  Центральний квадрат розміром 100х100
+#  Верхню половину
+#  Нижню половину
+#  Ліву половину
+#  Праву половину
 
-# # те саме
-# new_img = np.clip(new_img, 0, 255)
-#
-# new_img = new_img.astype(np.uint8)
-#
-# cv2.imshow('new', new_img)
 
-# частина зображення з 200 по 400 рядок
-segment = img[200:400]  # ті самі пікселі що і в img
+def start_task2():
+    top_left = img[:101, :51]
+    center = img[77:178, 77:178]
+    top = img[:128]
+    bottom = img[128:]
+    left = img[:, :128]
+    right = img[:, 128:]
 
-cv2.imshow('segment', segment)
+    cv2.imshow('original', img)
+    cv2.imshow('top_left', top_left)
+    cv2.imshow('center', center)
+    cv2.imshow('top', top)
+    cv2.imshow('bottom', bottom)
+    cv2.imshow('left', left)
+    cv2.imshow('right', right)
+    cv2.waitKey(0)
 
-segment += 80
 
-cv2.imshow('original', img)
-cv2.imshow('segment', segment)
+# start_task2()
 
-cv2.waitKey(0)
+
+# Завдання 3
+# Відкрийте зображення data/Lenna.png. Створіть наступні зображення
+def start_task3():
+    border = 30
+    border_top = border
+    border_left = border
+    border_bottom = 256 - border
+    border_right = 256 - border
+
+    img2 = img.copy()
+    img3 = img.copy()
+    img4 = img.copy()
+
+    img2[:border_top] = 0
+    img2[border_bottom: ] = 255
+
+    img3[:, :border_left] = 0
+    img3[:, border_right:] = 0
+
+    img4[:border_top] = 0
+    img4[border_bottom:] = 0
+    img4[:, :border_left] = 0
+    img4[:, border_right:] = 0
+
+    cv2.imshow('original', img)
+    cv2.imshow('top_bottom', img2)
+    cv2.imshow('lef_right', img3)
+    cv2.imshow('all', img4)
+    cv2.waitKey(0)
+
+
+# start_task3()
+
+
+# Завдання 4
+# Відкрийте зображення data/Lenna.png. Створіть маску для
+# пік селів з інтенсивністю більше 128 та виведіть її. Також
+# виведіть заперечення цієї маски.
+# На оригінальному зображенні, усі пікселі які не
+# відповідають масці замініть на 0 та виведіть результат
+
+def start_task4():
+    mask = img > 128
+
+    print(f"{img[mask] = }")
+    print(f"{img[~mask] = }")
+
+
+    img2 = img.copy()
+    img2[~mask] = 0
+    cv2.imshow('original', img)
+    cv2.imshow('change origin', img2)
+    cv2.waitKey(0)
+
+
+start_task4()
