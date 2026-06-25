@@ -112,3 +112,5 @@ def start_task4():
 
 
 start_task4()
+
+# гамма корекція
