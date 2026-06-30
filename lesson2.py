@@ -103,10 +103,13 @@ def start_task4():
     print(f"{img[mask] = }")
     print(f"{img[~mask] = }")
 
+    new_mask = mask.astype(np.uint8) * 255
+
 
     img2 = img.copy()
     img2[~mask] = 0
     cv2.imshow('original', img)
+    cv2.imshow('with new mask', new_mask)
     cv2.imshow('change origin', img2)
     cv2.waitKey(0)
 
