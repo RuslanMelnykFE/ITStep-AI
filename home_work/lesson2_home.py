@@ -15,17 +15,17 @@ import numpy as np
 
 def start_task1():
     img = cv2.imread(
-        "./data/lesson1/Lenna.png",
+        "../data/lesson1/Lenna.png",
         cv2.IMREAD_GRAYSCALE
     )
 
     mask1 = cv2.imread(
-        "./data/lesson1/mask1.png",
+        "../data/lesson1/mask1.png",
         cv2.IMREAD_GRAYSCALE
     )
 
     mask2 = cv2.imread(
-        "./data/lesson1/mask2.png",
+        "../data/lesson1/mask2.png",
         cv2.IMREAD_GRAYSCALE
     )
 
@@ -56,7 +56,7 @@ def start_task1():
 
 def start_task2():
     img = cv2.imread(
-        "./data/lesson1/baboo.jpg",
+        "../data/lesson1/baboo.jpg",
         cv2.IMREAD_GRAYSCALE
     )
 

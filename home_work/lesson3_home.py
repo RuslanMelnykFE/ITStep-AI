@@ -13,7 +13,7 @@ import numpy as np
 # Виведіть результати обох обробок на екран
 
 def start_task1():
-    img = cv2.imread('data/lesson2/darken.png')
+    img = cv2.imread('../data/lesson2/darken.png')
 
     cv2.imshow('origin', img)
 
