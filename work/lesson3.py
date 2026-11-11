@@ -13,7 +13,7 @@ import numpy as np
 #  усіх кульок
 
 def start_task1():
-    img = cv2.imread('data/lesson2/marbles.png')
+    img = cv2.imread('../data/lesson2/marbles.png')
 
     cv2.imshow('origin', img)
 
@@ -82,7 +82,7 @@ def start_task1():
 
 
 def start_task2():
-    img = cv2.imread('data/lesson2/cell.png')
+    img = cv2.imread('../data/lesson2/cell.png')
 
     cv2.imshow('origin', img)
 

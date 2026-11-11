@@ -7,7 +7,7 @@ import numpy as np
 # розмір зображення, тип даних, максимальну та мінімальну
 # інтенсивність пікселів, саме зображення з підписом.
 img = cv2.imread(
-        'data/lesson1/Lenna.png',  # шлях до файлу
+    '../data/lesson1/Lenna.png',  # шлях до файлу
         cv2.IMREAD_GRAYSCALE # формат зображення
     )
 
