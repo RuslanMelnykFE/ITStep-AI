@@ -15,7 +15,7 @@ def start_task1():
 
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    img_gauss = cv2.GaussianBlur(img_gray, (3, 3), 0)
+    img_gauss = cv2.GaussianBlur(img_gray, (3, 3), 1.2)
 
     img_binary = cv2.adaptiveThreshold(
         img_gauss,
@@ -23,20 +23,20 @@ def start_task1():
         cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
         cv2.THRESH_BINARY,
         9,
-        1
+        3
     )
 
     result = cv2.fastNlMeansDenoising(
         img_binary,
         None,
         h=20,
-        templateWindowSize=15,
-        searchWindowSize=41)
+        templateWindowSize=7,
+        searchWindowSize=21)
 
     cv2.imshow('result', result)
     cv2.waitKey(0)
 
-# start_task1()
+start_task1()
 
 
 
@@ -77,4 +77,4 @@ def start_task2():
     cv2.imshow('result', result)
     cv2.waitKey(0)
 
-start_task2()
+# start_task2()
